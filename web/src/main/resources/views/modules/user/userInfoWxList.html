@@ -1,0 +1,132 @@
+<% layout('/layouts/default.html', {title: '微信用户表管理', libs: ['dataGrid']}){ %>
+<div class="main-content">
+	<div class="box box-main">
+		<div class="box-header">
+			<div class="box-title">
+				<i class="fa icon-notebook"></i> ${text('微信用户表管理')}
+			</div>
+			<div class="box-tools pull-right">
+				<a href="#" class="btn btn-default" id="btnSearch" title="${text('查询')}"><i class="fa fa-filter"></i> ${text('查询')}</a>
+				<% if(hasPermi('user:userInfoWx:edit')){ %>
+					<a href="${ctx}/user/userInfoWx/form" class="btn btn-default btnTool" title="${text('新增微信用户表')}"><i class="fa fa-plus"></i> ${text('新增')}</a>
+				<% } %>
+			</div>
+		</div>
+		<div class="box-body">
+			<#form:form id="searchForm" model="${userInfoWx}" action="${ctx}/user/userInfoWx/listData" method="post" class="form-inline hide"
+					data-page-no="${parameter.pageNo}" data-page-size="${parameter.pageSize}" data-order-by="${parameter.orderBy}">
+				<div class="form-group">
+					<label class="control-label">${text('昵称')}：</label>
+					<div class="control-inline">
+						<#form:input path="nickName" maxlength="64" class="form-control width-120"/>
+					</div>
+				</div>
+				<div class="form-group">
+					<label class="control-label">${text('真实名称')}：</label>
+					<div class="control-inline">
+						<#form:input path="realName" maxlength="64" class="form-control width-120"/>
+					</div>
+				</div>
+				<div class="form-group">
+					<label class="control-label">${text('微信id')}：</label>
+					<div class="control-inline">
+						<#form:input path="wxId" maxlength="64" class="form-control width-120"/>
+					</div>
+				</div>
+				<div class="form-group">
+					<label class="control-label">${text('状态')}：</label>
+					<div class="control-inline width-120">
+						<#form:select path="gender" dictType="" blankOption="true" class="form-control"/>
+					</div>
+				</div>
+				<div class="form-group">
+					<label class="control-label">${text('省')}：</label>
+					<div class="control-inline">
+						<#form:input path="province" maxlength="64" class="form-control width-120"/>
+					</div>
+				</div>
+				<div class="form-group">
+					<label class="control-label">${text('市')}：</label>
+					<div class="control-inline">
+						<#form:input path="city" maxlength="64" class="form-control width-120"/>
+					</div>
+				</div>
+				<div class="form-group">
+					<label class="control-label">${text('县')}：</label>
+					<div class="control-inline">
+						<#form:input path="county" maxlength="64" class="form-control width-120"/>
+					</div>
+				</div>
+				<div class="form-group">
+					<label class="control-label">${text('区')}：</label>
+					<div class="control-inline">
+						<#form:input path="area" maxlength="64" class="form-control width-120"/>
+					</div>
+				</div>
+				<div class="form-group">
+					<label class="control-label">${text('语言')}：</label>
+					<div class="control-inline width-120">
+						<#form:select path="language" dictType="" blankOption="true" class="form-control"/>
+					</div>
+				</div>
+				<div class="form-group">
+					<label class="control-label">${text('状态')}：</label>
+					<div class="control-inline width-120">
+						<#form:select path="status" dictType="sys_search_status" blankOption="true" class="form-control"/>
+					</div>
+				</div>
+				<div class="form-group">
+					<button type="submit" class="btn btn-primary btn-sm">${text('查询')}</button>
+					<button type="reset" class="btn btn-default btn-sm">${text('重置')}</button>
+				</div>
+			</#form:form>
+			<table id="dataGrid"></table>
+			<div id="dataGridPage"></div>
+		</div>
+	</div>
+</div>
+<% } %>
+<script>
+// 初始化DataGrid对象
+$('#dataGrid').dataGrid({
+	searchForm: $("#searchForm"),
+	columnModel: [
+		{header:'${text("昵称")}', name:'nickName', index:'a.nick_name', width:150, align:"left", frozen:true, formatter: function(val, obj, row, act){
+			return '<a href="${ctx}/user/userInfoWx/form?id='+row.id+'" class="btnList" data-title="${text("编辑微信用户表")}">'+(val||row.id)+'</a>';
+		}},
+		{header:'${text("真实名称")}', name:'realName', index:'a.real_name', width:150, align:"left"},
+		{header:'${text("微信id")}', name:'wxId', index:'a.wx_id', width:150, align:"left"},
+		{header:'${text("头像路径")}', name:'avatarUrl', index:'a.avatar_url', width:150, align:"left"},
+		{header:'${text("状态")}', name:'gender', index:'a.gender', width:150, align:"center", formatter: function(val, obj, row, act){
+			return js.getDictLabel(${@DictUtils.getDictListJson('')}, val, '${text("未知")}', true);
+		}},
+		{header:'${text("省")}', name:'province', index:'a.province', width:150, align:"left"},
+		{header:'${text("市")}', name:'city', index:'a.city', width:150, align:"left"},
+		{header:'${text("县")}', name:'county', index:'a.county', width:150, align:"left"},
+		{header:'${text("区")}', name:'area', index:'a.area', width:150, align:"left"},
+		{header:'${text("语言")}', name:'language', index:'a.language', width:150, align:"center", formatter: function(val, obj, row, act){
+			return js.getDictLabel(${@DictUtils.getDictListJson('')}, val, '${text("未知")}', true);
+		}},
+		{header:'${text("状态")}', name:'status', index:'a.status', width:150, align:"center", formatter: function(val, obj, row, act){
+			return js.getDictLabel(${@DictUtils.getDictListJson('sys_search_status')}, val, '${text("未知")}', true);
+		}},
+		{header:'${text("更新时间")}', name:'updateDate', index:'a.update_date', width:150, align:"center"},
+		{header:'${text("备注信息")}', name:'remarks', index:'a.remarks', width:150, align:"left"},
+		{header:'${text("备用字段1")}', name:'ext1', index:'a.ext1', width:150, align:"left"},
+		{header:'${text("备用字段2")}', name:'ext2', index:'a.ext2', width:150, align:"left"},
+		{header:'${text("备用字段3")}', name:'ext3', index:'a.ext3', width:150, align:"left"},
+		{header:'${text("操作")}', name:'actions', width:120, sortable:false, title:false, formatter: function(val, obj, row, act){
+			var actions = [];
+			<% if(hasPermi('user:userInfoWx:edit')){ %>
+				actions.push('<a href="${ctx}/user/userInfoWx/form?id='+row.id+'" class="btnList" title="${text("编辑微信用户表")}"><i class="fa fa-pencil"></i></a>&nbsp;');
+				actions.push('<a href="${ctx}/user/userInfoWx/delete?id='+row.id+'" class="btnList" title="${text("删除微信用户表")}" data-confirm="${text("确认要删除该微信用户表吗？")}"><i class="fa fa-trash-o"></i></a>&nbsp;');
+			<% } %>
+			return actions.join('');
+		}}
+	],
+	// 加载成功后执行事件
+	ajaxSuccess: function(data){
+		
+	}
+});
+</script>

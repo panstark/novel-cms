@@ -1,0 +1,148 @@
+<% layout('/layouts/default.html', {title: '小说内容表管理', libs: ['dataGrid']}){ %>
+<div class="main-content">
+	<div class="box box-main">
+		<div class="box-header">
+			<div class="box-title">
+				<i class="fa icon-notebook"></i> ${text('小说内容表管理')}
+			</div>
+			<div class="box-tools pull-right">
+				<a href="#" class="btn btn-default" id="btnSearch" title="${text('查询')}"><i class="fa fa-filter"></i> ${text('查询')}</a>
+				<% if(hasPermi('novel:novelContent:edit')){ %>
+					<a href="${ctx}/novel/novelContent/form" class="btn btn-default btnTool" title="${text('新增小说内容表')}"><i class="fa fa-plus"></i> ${text('新增')}</a>
+				<% } %>
+			</div>
+		</div>
+		<div class="box-body">
+			<#form:form id="searchForm" model="${novelContent}" action="${ctx}/novel/novelContent/listData" method="post" class="form-inline hide"
+					data-page-no="${parameter.pageNo}" data-page-size="${parameter.pageSize}" data-order-by="${parameter.orderBy}">
+				<div class="form-group">
+					<label class="control-label">${text('关联主键')}：</label>
+					<div class="control-inline">
+						<#form:input path="novelId" maxlength="64" class="form-control width-120"/>
+					</div>
+				</div>
+				<div class="form-group">
+					<label class="control-label">${text('卷')}：</label>
+					<div class="control-inline">
+						<#form:input path="bigChapter" maxlength="11" class="form-control width-120"/>
+					</div>
+				</div>
+				<div class="form-group">
+					<label class="control-label">${text('卷')}：</label>
+					<div class="control-inline">
+						<#form:input path="bigChapterStr" maxlength="30" class="form-control width-120"/>
+					</div>
+				</div>
+				<div class="form-group">
+					<label class="control-label">${text('章')}：</label>
+					<div class="control-inline">
+						<#form:input path="chapter" maxlength="11" class="form-control width-120"/>
+					</div>
+				</div>
+				<div class="form-group">
+					<label class="control-label">${text('卷')}：</label>
+					<div class="control-inline">
+						<#form:input path="chapterStr" maxlength="30" class="form-control width-120"/>
+					</div>
+				</div>
+				<div class="form-group">
+					<label class="control-label">${text('总章数')}：</label>
+					<div class="control-inline">
+						<#form:input path="totalNum" maxlength="11" class="form-control width-120"/>
+					</div>
+				</div>
+				<div class="form-group">
+					<label class="control-label">${text('文章标题')}：</label>
+					<div class="control-inline">
+						<#form:input path="title" maxlength="100" class="form-control width-120"/>
+					</div>
+				</div>
+				<div class="form-group">
+					<label class="control-label">${text('文章副标题')}：</label>
+					<div class="control-inline">
+						<#form:input path="titleTwo" maxlength="100" class="form-control width-120"/>
+					</div>
+				</div>
+				<div class="form-group">
+					<label class="control-label">${text('小说类型')}：</label>
+					<div class="control-inline">
+						<#form:input path="type" maxlength="1" class="form-control width-120"/>
+					</div>
+				</div>
+				<div class="form-group">
+					<label class="control-label">${text('章节内容')}：</label>
+					<div class="control-inline">
+						<#form:input path="content" class="form-control width-120"/>
+					</div>
+				</div>
+				<div class="form-group">
+					<label class="control-label">${text('精华')}：</label>
+					<div class="control-inline">
+						<#form:input path="miniIntroduction" maxlength="500" class="form-control width-120"/>
+					</div>
+				</div>
+				<div class="form-group">
+					<label class="control-label">${text('图片链接')}：</label>
+					<div class="control-inline">
+						<#form:input path="pictureUrl" maxlength="300" class="form-control width-120"/>
+					</div>
+				</div>
+				<div class="form-group">
+					<label class="control-label">${text('状态')}：</label>
+					<div class="control-inline width-120">
+						<#form:select path="status" dictType="sys_search_status" blankOption="true" class="form-control"/>
+					</div>
+				</div>
+				<div class="form-group">
+					<button type="submit" class="btn btn-primary btn-sm">${text('查询')}</button>
+					<button type="reset" class="btn btn-default btn-sm">${text('重置')}</button>
+				</div>
+			</#form:form>
+			<table id="dataGrid"></table>
+			<div id="dataGridPage"></div>
+		</div>
+	</div>
+</div>
+<% } %>
+<script>
+// 初始化DataGrid对象
+$('#dataGrid').dataGrid({
+	searchForm: $("#searchForm"),
+	columnModel: [
+		{header:'${text("关联主键")}', name:'novelId', index:'a.novel_id', width:150, align:"left", frozen:true, formatter: function(val, obj, row, act){
+			return '<a href="${ctx}/novel/novelContent/form?id='+row.id+'" class="btnList" data-title="${text("编辑小说内容表")}">'+(val||row.id)+'</a>';
+		}},
+		{header:'${text("卷")}', name:'bigChapter', index:'a.big_chapter', width:150, align:"center"},
+		{header:'${text("卷")}', name:'bigChapterStr', index:'a.big_chapter_str', width:150, align:"left"},
+		{header:'${text("章")}', name:'chapter', index:'a.chapter', width:150, align:"center"},
+		{header:'${text("卷")}', name:'chapterStr', index:'a.chapter_str', width:150, align:"left"},
+		{header:'${text("总章数")}', name:'totalNum', index:'a.total_num', width:150, align:"center"},
+		{header:'${text("文章标题")}', name:'title', index:'a.title', width:150, align:"left"},
+		{header:'${text("文章副标题")}', name:'titleTwo', index:'a.title_two', width:150, align:"left"},
+		{header:'${text("小说类型")}', name:'type', index:'a.type', width:150, align:"left"},
+		{header:'${text("章节内容")}', name:'content', index:'a.content', width:150, align:"left"},
+		{header:'${text("精华")}', name:'miniIntroduction', index:'a.mini_introduction', width:150, align:"left"},
+		{header:'${text("图片链接")}', name:'pictureUrl', index:'a.picture_url', width:150, align:"left"},
+		{header:'${text("状态")}', name:'status', index:'a.status', width:150, align:"center", formatter: function(val, obj, row, act){
+			return js.getDictLabel(${@DictUtils.getDictListJson('sys_search_status')}, val, '${text("未知")}', true);
+		}},
+		{header:'${text("更新时间")}', name:'updateDate', index:'a.update_date', width:150, align:"center"},
+		{header:'${text("备注信息")}', name:'remarks', index:'a.remarks', width:150, align:"left"},
+		{header:'${text("备用字段1")}', name:'ext1', index:'a.ext1', width:150, align:"left"},
+		{header:'${text("备用字段2")}', name:'ext2', index:'a.ext2', width:150, align:"left"},
+		{header:'${text("备用字段3")}', name:'ext3', index:'a.ext3', width:150, align:"left"},
+		{header:'${text("操作")}', name:'actions', width:120, sortable:false, title:false, formatter: function(val, obj, row, act){
+			var actions = [];
+			<% if(hasPermi('novel:novelContent:edit')){ %>
+				actions.push('<a href="${ctx}/novel/novelContent/form?id='+row.id+'" class="btnList" title="${text("编辑小说内容表")}"><i class="fa fa-pencil"></i></a>&nbsp;');
+				actions.push('<a href="${ctx}/novel/novelContent/delete?id='+row.id+'" class="btnList" title="${text("删除小说内容表")}" data-confirm="${text("确认要删除该小说内容表吗？")}"><i class="fa fa-trash-o"></i></a>&nbsp;');
+			<% } %>
+			return actions.join('');
+		}}
+	],
+	// 加载成功后执行事件
+	ajaxSuccess: function(data){
+		
+	}
+});
+</script>

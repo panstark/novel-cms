@@ -1,0 +1,76 @@
+<% include('${ctxStatic}/modules/cmsfront/themes/include/csslibs.html', {libs: libs!}){} %>
+<link rel="stylesheet" href="${ctxStatic}/modules/cmsfront/themes/default/bootstrap.css?${_version}" media="screen">
+<link rel="stylesheet" href="${ctxStatic}/modules/cmsfront/themes/assets/css/custom.min.css?${_version}">
+<!-- HTML5 shim and Respond.js IE8 support of HTML5 elements and media queries -->
+<!--[if lt IE 9]>
+<script src="${ctxStatic}/modules/cmsfront/themes/bower_components/html5shiv/dist/html5shiv.js?${_version}"></script>
+<script src="${ctxStatic}/modules/cmsfront/themes/bower_components/respond/dest/respond.min.js?${_version}"></script>
+<![endif]-->
+
+<div class="navbar navbar-default navbar-fixed-top">
+      <div class="container">
+        <div class="navbar-header">
+          <a href="${ctxPath}" class="navbar-brand">JeeSite</a>
+          <button class="navbar-toggle" type="button" data-toggle="collapse" data-target="#navbar-main">
+            <span class="icon-bar"></span>
+            <span class="icon-bar"></span>
+            <span class="icon-bar"></span>
+          </button>
+        </div>
+        <div class="navbar-collapse collapse" id="navbar-main">
+          <ul class="nav navbar-nav">
+            <li class="dropdown">
+              <a class="dropdown-toggle" data-toggle="dropdown" href="#" id="themes">主题 <span class="caret"></span></a>
+            </li>
+            <li>
+              <a href="../help/">帮助</a>
+            </li>
+            <li>
+              <a href="http://news.bootswatch.com">博客</a>
+            </li>
+            <li id="siteSwitch" class="dropdown">
+			       	<a class="dropdown-toggle" data-toggle="dropdown" href="#" title="站点"><i class="glyphicon glyphicon-retweet"></i></a>
+					<ul class="dropdown-menu">
+					 <li><a href="#" onclick="location='${ctx}/index-${site.id}'">${site.title}</a></li>
+					</ul>
+				</li>
+		    	<li id="themeSwitch" class="dropdown">
+			       	<a class="dropdown-toggle" data-toggle="dropdown" href="#" title="主题切换"><i class="glyphicon glyphicon-th-large"></i></a>
+				    <ul class="dropdown-menu">
+				     <li><a href="#" onclick="location='?url='+location.href">字典</a></li>
+				    </ul>
+				    <!--[if lte IE 6]><script type="text/javascript">$('#themeSwitch').hide();</script><![endif]-->
+			    </li>
+            
+            <li class="dropdown">
+              <a class="dropdown-toggle" data-toggle="dropdown" href="#" id="download">皮肤 <span class="caret"></span></a>
+              <ul class="dropdown-menu" aria-labelledby="download">
+                <li><a href="http://jsfiddle.net/bootswatch/9y480qo5/">Open Sandbox</a></li>
+                <li class="divider"></li>
+                <li><a href="./bootstrap.min.css">bootstrap.min.css</a></li>
+                <li><a href="./bootstrap.css">bootstrap.css</a></li>
+                <li class="divider"></li>
+                <li><a href="./variables.less">variables.less</a></li>
+                <li><a href="./bootswatch.less">bootswatch.less</a></li>
+                <li class="divider"></li>
+                <li><a href="./_variables.scss">_variables.scss</a></li>
+                <li><a href="./_bootswatch.scss">_bootswatch.scss</a></li>
+              </ul>
+            </li>
+          </ul>
+
+          <ul class="nav navbar-nav navbar-right">
+             <form class="navbar-form navbar-left" role="search">
+                      <div class="form-group">
+                        <input type="text" class="form-control" placeholder="全站搜索...">
+                      </div>
+                      <button type="submit" class="btn btn-default">搜索</button>
+             </form>
+            
+          </ul>
+
+        </div>
+      </div>
+    </div>
+    
+       
