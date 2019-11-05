@@ -11,5 +11,26 @@
 		</where>
 		ORDER BY ${sqlMap.order.toSql()}
 	</select> -->
-	
+
+	<select id="findLastContentByNovelId" resultType="NovelContent">
+		SELECT *
+		FROM novel_content a
+		<where>
+			a.novel_id = #{novelId}
+		</where>
+		ORDER BY a.big_chapter desc , a.chapter desc
+		limit 1
+	</select>
+
+	<select id="findFirstContentByNovelId" resultType="NovelContent">
+		SELECT *
+		FROM novel_content a
+		<where>
+			a.novel_id = #{novelId}
+		</where>
+		ORDER BY a.big_chapter asc , a.chapter asc
+		limit 1
+	</select>
+
+
 </mapper>

@@ -14,5 +14,8 @@ import com.jeesite.modules.novel.entity.NovelLittle;
  */
 @MyBatisDao
 public interface NovelLittleDao extends CrudDao<NovelLittle> {
-	
+
+    NovelLittle findFirstNovel();
+
+    NovelLittle findbyNumber(String num);
 }

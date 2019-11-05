@@ -5,6 +5,7 @@ package com.jeesite.modules.novel.service;
 
 import java.util.List;
 
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
@@ -21,7 +22,9 @@ import com.jeesite.modules.novel.dao.NovelLittleDao;
 @Service
 @Transactional(readOnly=true)
 public class NovelLittleService extends CrudService<NovelLittleDao, NovelLittle> {
-	
+
+	@Autowired
+	private NovelLittleDao dao;
 	/**
 	 * 获取单条数据
 	 * @param novelLittle
@@ -35,7 +38,6 @@ public class NovelLittleService extends CrudService<NovelLittleDao, NovelLittle>
 	/**
 	 * 查询分页数据
 	 * @param novelLittle 查询条件
-	 * @param novelLittle.page 分页对象
 	 * @return
 	 */
 	@Override
@@ -72,5 +74,35 @@ public class NovelLittleService extends CrudService<NovelLittleDao, NovelLittle>
 	public void delete(NovelLittle novelLittle) {
 		super.delete(novelLittle);
 	}
-	
+
+	/**
+	 *获取短篇小数中的第一个
+	 * @return
+	 */
+    public NovelLittle findFirstNovel() {
+		NovelLittle novelLittle = dao.findFirstNovel();
+		return novelLittle;
+    }
+
+	public NovelLittle findNextNovel(String num) {
+    	Integer numInt = Integer.parseInt(num);
+    	Integer next = numInt+1;
+		return findNovelByNum(next);
+	}
+
+	public NovelLittle findPreviousNovel(String num) {
+		Integer numInt = Integer.parseInt(num);
+		Integer previous = numInt-1;
+		return findNovelByNum(previous);
+	}
+
+	private NovelLittle findNovelByNum(Integer num) {
+    	String number = String.valueOf(num);
+		NovelLittle novelLittle = dao.findbyNumber(number);
+		if(null==novelLittle){
+			novelLittle = findFirstNovel();
+		}
+		return novelLittle;
+	}
+
 }

@@ -55,7 +55,15 @@ public class NovelInfo extends DataEntity<NovelInfo> {
 	private String ext1;		// 备用字段1
 	private String ext2;		// 备用字段2
 	private String ext3;		// 备用字段3
-	
+
+
+	//非数据库
+	private String latestChapterId;
+	private String latestChapterTitle;
+
+	private String userReadChapterId;
+	private String userReadChapterTitle;
+
 	public NovelInfo() {
 		this(null);
 	}
@@ -198,5 +206,36 @@ public class NovelInfo extends DataEntity<NovelInfo> {
 	public void setExt3(String ext3) {
 		this.ext3 = ext3;
 	}
-	
+
+	public String getLatestChapterId() {
+		return latestChapterId;
+	}
+
+	public void setLatestChapterId(String latestChapterId) {
+		this.latestChapterId = latestChapterId;
+	}
+
+	public String getLatestChapterTitle() {
+		return latestChapterTitle;
+	}
+
+	public void setLatestChapterTitle(String latestChapterTitle) {
+		this.latestChapterTitle = latestChapterTitle;
+	}
+
+	public String getUserReadChapterId() {
+		return userReadChapterId;
+	}
+
+	public void setUserReadChapterId(String userReadChapterId) {
+		this.userReadChapterId = userReadChapterId;
+	}
+
+	public String getUserReadChapterTitle() {
+		return userReadChapterTitle;
+	}
+
+	public void setUserReadChapterTitle(String userReadChapterTitle) {
+		this.userReadChapterTitle = userReadChapterTitle;
+	}
 }

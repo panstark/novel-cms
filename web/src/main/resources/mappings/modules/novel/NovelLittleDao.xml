@@ -11,5 +11,23 @@
 		</where>
 		ORDER BY ${sqlMap.order.toSql()}
 	</select> -->
+
+
+
+	<select id="findFirstNovel" resultType="NovelLittle">
+		SELECT
+		*
+		FROM novel_little a
+		ORDER BY a.number desc
+		limit 1
+	</select>
+
+	<select id="findbyNumber" resultType="NovelLittle">
+		SELECT
+		*
+		FROM novel_little a
+		where number = #{num}
+		limit 1
+	</select>
 	
 </mapper>

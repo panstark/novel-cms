@@ -95,5 +95,6 @@ public class UserInfoWxController extends BaseController {
 		userInfoWxService.delete(userInfoWx);
 		return renderResult(Global.TRUE, text("删除微信用户表成功！"));
 	}
+
 	
 }

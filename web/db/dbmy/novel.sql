@@ -151,3 +151,21 @@ CREATE TABLE novel_comment
 	ext3 varchar(500) COMMENT '备用字段3',
 	PRIMARY KEY (id)
 ) COMMENT = '读者评论表';
+
+CREATE TABLE novel_like
+(
+	id varchar(64) NOT NULL COMMENT '主键',
+	novel_id varchar(64) NOT NULL COMMENT '小说主键',
+	wx_user_id varchar(64)  COMMENT '读者id',
+	like_num int  COMMENT '喜欢个数',
+	status char(1) DEFAULT '0' NOT NULL COMMENT '状态（0正常 1删除 2停用）',
+	create_by varchar(64) NOT NULL COMMENT '创建者',
+	create_date datetime NOT NULL COMMENT '创建时间',
+	update_by varchar(64) NOT NULL COMMENT '更新者',
+	update_date datetime NOT NULL COMMENT '更新时间',
+	remarks varchar(500) COMMENT '备注信息',
+	ext1 varchar(500) COMMENT '备用字段1',
+	ext2 varchar(500) COMMENT '备用字段2',
+	ext3 varchar(500) COMMENT '备用字段3',
+	PRIMARY KEY (id)
+) COMMENT = '读者喜欢个数表';

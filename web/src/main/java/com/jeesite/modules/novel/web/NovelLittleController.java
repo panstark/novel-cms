@@ -11,10 +11,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.validation.annotation.Validated;
-import org.springframework.web.bind.annotation.ModelAttribute;
-import org.springframework.web.bind.annotation.PostMapping;
-import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.ResponseBody;
+import org.springframework.web.bind.annotation.*;
 
 import com.jeesite.common.config.Global;
 import com.jeesite.common.entity.Page;
@@ -95,5 +92,38 @@ public class NovelLittleController extends BaseController {
 		novelLittleService.delete(novelLittle);
 		return renderResult(Global.TRUE, text("删除短篇小说成功！"));
 	}
+
+	///classic/latest
+    @RequestMapping(value = "first")
+    @ResponseBody
+    public NovelLittle findfirstNovel() {
+	    return novelLittleService.findFirstNovel();
+    }
+
+    @RequestMapping(value = "next/{num}")
+    @ResponseBody
+    public NovelLittle findNextNovel(@PathVariable(name="num") String num) {
+        return novelLittleService.findNextNovel(num);
+    }
+
+    @RequestMapping(value = "previous/{num}")
+    @ResponseBody
+    public NovelLittle findPreviousNovel(@PathVariable(name="num") String num) {
+        return novelLittleService.findPreviousNovel(num);
+    }
+
+    @RequestMapping(value = "detail/{id}")
+    @ResponseBody
+    public NovelLittle findNovelLittleDetail(@PathVariable(name="id") String id) {
+        return novelLittleService.get(id);
+    }
+
+//    @RequestMapping(value = "favor/id")
+//    @ResponseBody
+//    public NovelLittle findNovelFavor(String userId,String id) {
+//        return novelLittleService.findNovelFavor(id,userId);
+//    }
+
+
 	
 }

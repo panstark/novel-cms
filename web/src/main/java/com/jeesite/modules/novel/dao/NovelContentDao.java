@@ -14,5 +14,8 @@ import com.jeesite.modules.novel.entity.NovelContent;
  */
 @MyBatisDao
 public interface NovelContentDao extends CrudDao<NovelContent> {
-	
+
+    NovelContent findLastContentByNovelId(String novelId);
+
+    NovelContent findFirstContentByNovelId(String novelId);
 }
