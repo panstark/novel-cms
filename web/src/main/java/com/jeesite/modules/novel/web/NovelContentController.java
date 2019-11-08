@@ -95,5 +95,17 @@ public class NovelContentController extends BaseController {
 		novelContentService.delete(novelContent);
 		return renderResult(Global.TRUE, text("删除小说内容表成功！"));
 	}
+
+	@RequestMapping(value = "findNextChapter")
+	@ResponseBody
+	public NovelContent findNextChapter(String novelId,String number) {
+		return novelContentService.findNextChapter(novelId,number);
+	}
+
+	@RequestMapping(value = "findpreviousChapter")
+	@ResponseBody
+	public NovelContent findpreviousChapter(String novelId,String number) {
+		return novelContentService.findPreviousChapter(novelId,number);
+	}
 	
 }

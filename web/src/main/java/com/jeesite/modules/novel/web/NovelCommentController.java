@@ -22,6 +22,8 @@ import com.jeesite.common.web.BaseController;
 import com.jeesite.modules.novel.entity.NovelComment;
 import com.jeesite.modules.novel.service.NovelCommentService;
 
+import java.util.List;
+
 /**
  * 读者评论表Controller
  * @author guoxhe
@@ -94,6 +96,28 @@ public class NovelCommentController extends BaseController {
 	public String delete(NovelComment novelComment) {
 		novelCommentService.delete(novelComment);
 		return renderResult(Global.TRUE, text("删除读者评论表成功！"));
+	}
+
+	/**
+	 * 保存读者评论表
+	 */
+	@PostMapping(value = "comment")
+	@ResponseBody
+	public String comment(@Validated NovelComment novelComment) {
+		novelCommentService.save(novelComment);
+		return "{code:000}";
+	}
+
+	/**
+	 * 查询列表数据
+	 */
+	@RequestMapping(value = "list-conments")
+	@ResponseBody
+	public List<NovelComment> list(String novelId, String pageNum,String pageSize) {
+
+		List<NovelComment> comments = novelCommentService.findCommentList(novelId,pageNum,pageSize);
+
+		return comments;
 	}
 	
 }

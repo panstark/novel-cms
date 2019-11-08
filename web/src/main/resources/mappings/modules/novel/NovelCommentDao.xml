@@ -11,5 +11,15 @@
 		</where>
 		ORDER BY ${sqlMap.order.toSql()}
 	</select> -->
+
+	<select id="findCommentList" resultType="NovelComment">
+		SELECT *
+		FROM novel_comment
+		<where>
+			novel_id =#{novelId}
+		</where>
+		ORDER BY create_date
+		limit #{page} 20
+	</select>
 	
 </mapper>

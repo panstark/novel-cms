@@ -95,5 +95,10 @@ public class NovelLikeController extends BaseController {
 		novelLikeService.delete(novelLike);
 		return renderResult(Global.TRUE, text("删除读者喜欢个数表成功！"));
 	}
-	
+
+	@RequestMapping(value = "delete")
+	@ResponseBody
+	public NovelLike findByNovelAndUserId(String id) {
+		return novelLikeService.get(id);
+	}
 }

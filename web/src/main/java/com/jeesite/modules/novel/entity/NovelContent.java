@@ -55,6 +55,8 @@ public class NovelContent extends DataEntity<NovelContent> {
 	private String ext1;		// 备用字段1
 	private String ext2;		// 备用字段2
 	private String ext3;		// 备用字段3
+
+	private String chapterState; //章节状态first：第一章，last：最后一章
 	
 	public NovelContent() {
 		this(null);
@@ -198,5 +200,12 @@ public class NovelContent extends DataEntity<NovelContent> {
 	public void setExt3(String ext3) {
 		this.ext3 = ext3;
 	}
-	
+
+	public String getChapterState() {
+		return chapterState;
+	}
+
+	public void setChapterState(String chapterState) {
+		this.chapterState = chapterState;
+	}
 }

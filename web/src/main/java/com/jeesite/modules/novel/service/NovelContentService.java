@@ -3,8 +3,8 @@
  */
 package com.jeesite.modules.novel.service;
 
-import java.util.List;
-
+import com.jeesite.modules.common.ChapterEnum;
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
@@ -21,6 +21,9 @@ import com.jeesite.modules.novel.dao.NovelContentDao;
 @Service
 @Transactional(readOnly=true)
 public class NovelContentService extends CrudService<NovelContentDao, NovelContent> {
+
+	@Autowired
+	private NovelContentDao novelContentDao;
 	
 	/**
 	 * 获取单条数据
@@ -35,7 +38,6 @@ public class NovelContentService extends CrudService<NovelContentDao, NovelConte
 	/**
 	 * 查询分页数据
 	 * @param novelContent 查询条件
-	 * @param novelContent.page 分页对象
 	 * @return
 	 */
 	@Override
@@ -72,5 +74,40 @@ public class NovelContentService extends CrudService<NovelContentDao, NovelConte
 	public void delete(NovelContent novelContent) {
 		super.delete(novelContent);
 	}
-	
+
+
+	public NovelContent findNextChapter(String novelId, String number) {
+		Integer chapterNum = Integer.valueOf(number);
+		Integer nextChapter = chapterNum +1;
+		String nextChapterStr = String.valueOf(nextChapter);
+		NovelContent novelContent = findChapterByTotalNum(novelId,nextChapterStr);
+		if(null==novelContent){
+			novelContent = novelContentDao.findLastContentByNovelId(novelId);
+			novelContent.setChapterState(ChapterEnum.LASTCHAPTER.getCode());
+		}
+		return novelContent;
+	}
+
+	public NovelContent findPreviousChapter(String novelId, String number) {
+		Integer chapterNum = Integer.valueOf(number);
+		NovelContent novelContent;
+		if(chapterNum<=1){
+			novelContent = novelContentDao.findFirstContentByNovelId(novelId);
+			novelContent.setChapterState(ChapterEnum.FIRSTCHAPTER.getCode());
+		}else{
+			Integer nextChapter = chapterNum -1;
+			String nextChapterStr = String.valueOf(nextChapter);
+			novelContent = findChapterByTotalNum(novelId,nextChapterStr);
+		}
+
+		return novelContent;
+	}
+
+	private NovelContent findChapterByTotalNum(String novelId,String number) {
+
+		NovelContent novelContent = novelContentDao.findChapterByTotalNum(novelId,number);
+
+		return novelContent;
+	}
+
 }

@@ -6,6 +6,7 @@ package com.jeesite.modules.novel.dao;
 import com.jeesite.common.dao.CrudDao;
 import com.jeesite.common.mybatis.annotation.MyBatisDao;
 import com.jeesite.modules.novel.entity.NovelContent;
+import org.apache.ibatis.annotations.Param;
 
 /**
  * 小说内容表DAO接口
@@ -18,4 +19,6 @@ public interface NovelContentDao extends CrudDao<NovelContent> {
     NovelContent findLastContentByNovelId(String novelId);
 
     NovelContent findFirstContentByNovelId(String novelId);
+
+    NovelContent findChapterByTotalNum(@Param("novelId")String novelId, @Param("number") String number);
 }

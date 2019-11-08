@@ -5,6 +5,7 @@ package com.jeesite.modules.novel.service;
 
 import java.util.List;
 
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
@@ -21,6 +22,9 @@ import com.jeesite.modules.novel.dao.NovelCommentDao;
 @Service
 @Transactional(readOnly=true)
 public class NovelCommentService extends CrudService<NovelCommentDao, NovelComment> {
+
+	@Autowired
+	private NovelCommentDao novelCommentDao;
 	
 	/**
 	 * 获取单条数据
@@ -35,7 +39,6 @@ public class NovelCommentService extends CrudService<NovelCommentDao, NovelComme
 	/**
 	 * 查询分页数据
 	 * @param novelComment 查询条件
-	 * @param novelComment.page 分页对象
 	 * @return
 	 */
 	@Override
@@ -72,5 +75,9 @@ public class NovelCommentService extends CrudService<NovelCommentDao, NovelComme
 	public void delete(NovelComment novelComment) {
 		super.delete(novelComment);
 	}
-	
+
+	public List<NovelComment> findCommentList(String novelId, String page, String num) {
+		List<NovelComment> comments = novelCommentDao.findCommentList(novelId,page,num);
+		return comments;
+	}
 }
