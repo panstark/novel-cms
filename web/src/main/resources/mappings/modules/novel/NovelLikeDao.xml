@@ -11,5 +11,16 @@
 		</where>
 		ORDER BY ${sqlMap.order.toSql()}
 	</select> -->
+
+	<select id="findByNovelAndUserId" resultType="NovelLike">
+		SELECT *
+		FROM novel_like a
+		<where>
+			a.novel_id = #{novelId}
+			and
+			a.wx_user_id = #{userId}
+		</where>
+		ORDER BY create_date desc
+	</select>
 	
 </mapper>

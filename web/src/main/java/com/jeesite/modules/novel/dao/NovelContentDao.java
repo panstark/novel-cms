@@ -8,6 +8,8 @@ import com.jeesite.common.mybatis.annotation.MyBatisDao;
 import com.jeesite.modules.novel.entity.NovelContent;
 import org.apache.ibatis.annotations.Param;
 
+import java.util.List;
+
 /**
  * 小说内容表DAO接口
  * @author guoxhe
@@ -20,5 +22,9 @@ public interface NovelContentDao extends CrudDao<NovelContent> {
 
     NovelContent findFirstContentByNovelId(String novelId);
 
-    NovelContent findChapterByTotalNum(@Param("novelId")String novelId, @Param("number") String number);
+    NovelContent findChapterByTotalNum(@Param("novelId")String novelId, @Param("number") Integer number);
+
+    Integer findChapterCount(String novelId);
+
+    List<NovelContent> findChapterByScope(@Param("novelId")String novelId, @Param("page")Integer page);
 }

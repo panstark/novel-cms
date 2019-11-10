@@ -120,17 +120,11 @@ $('#dataGrid').dataGrid({
 		{header:'${text("文章标题")}', name:'title', index:'a.title', width:150, align:"left"},
 		{header:'${text("文章副标题")}', name:'titleTwo', index:'a.title_two', width:150, align:"left"},
 		{header:'${text("小说类型")}', name:'type', index:'a.type', width:150, align:"left"},
-		{header:'${text("章节内容")}', name:'content', index:'a.content', width:150, align:"left"},
-		{header:'${text("精华")}', name:'miniIntroduction', index:'a.mini_introduction', width:150, align:"left"},
 		{header:'${text("图片链接")}', name:'pictureUrl', index:'a.picture_url', width:150, align:"left"},
 		{header:'${text("状态")}', name:'status', index:'a.status', width:150, align:"center", formatter: function(val, obj, row, act){
 			return js.getDictLabel(${@DictUtils.getDictListJson('sys_search_status')}, val, '${text("未知")}', true);
 		}},
 		{header:'${text("更新时间")}', name:'updateDate', index:'a.update_date', width:150, align:"center"},
-		{header:'${text("备注信息")}', name:'remarks', index:'a.remarks', width:150, align:"left"},
-		{header:'${text("备用字段1")}', name:'ext1', index:'a.ext1', width:150, align:"left"},
-		{header:'${text("备用字段2")}', name:'ext2', index:'a.ext2', width:150, align:"left"},
-		{header:'${text("备用字段3")}', name:'ext3', index:'a.ext3', width:150, align:"left"},
 		{header:'${text("操作")}', name:'actions', width:120, sortable:false, title:false, formatter: function(val, obj, row, act){
 			var actions = [];
 			<% if(hasPermi('novel:novelContent:edit')){ %>

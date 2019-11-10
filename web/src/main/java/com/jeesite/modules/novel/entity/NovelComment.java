@@ -21,6 +21,8 @@ import com.jeesite.common.mybatis.mapper.query.QueryType;
 		@Column(name="novel_id", attrName="novelId", label="小说主键"),
 		@Column(name="wx_user_id", attrName="wxUserId", label="读者id"),
 		@Column(name="introduction", attrName="introduction", label="评论"),
+		@Column(name="comments", attrName="comments", label="评论"),
+		@Column(name="num", attrName="num", label="评论喜欢数"),
 		@Column(name="title", attrName="title", label="文章标题", queryType=QueryType.LIKE),
 		@Column(name="title_two", attrName="titleTwo", label="文章副标题"),
 		@Column(name="type", attrName="type", label="评论类型"),
@@ -36,9 +38,11 @@ public class NovelComment extends DataEntity<NovelComment> {
 	private String novelId;		// 小说主键
 	private String wxUserId;		// 读者id
 	private String introduction;		// 评论
+	private String comments;		// 评论
 	private String title;		// 文章标题
 	private String titleTwo;		// 文章副标题
 	private String type;		// 评论类型
+	private Integer num;		// 评论类型
 	private String ext1;		// 备用字段1
 	private String ext2;		// 备用字段2
 	private String ext3;		// 备用字段3
@@ -69,7 +73,7 @@ public class NovelComment extends DataEntity<NovelComment> {
 	public void setWxUserId(String wxUserId) {
 		this.wxUserId = wxUserId;
 	}
-	
+
 	@Length(min=0, max=500, message="评论长度不能超过 500 个字符")
 	public String getIntroduction() {
 		return introduction;
@@ -78,7 +82,7 @@ public class NovelComment extends DataEntity<NovelComment> {
 	public void setIntroduction(String introduction) {
 		this.introduction = introduction;
 	}
-	
+
 	@Length(min=0, max=100, message="文章标题长度不能超过 100 个字符")
 	public String getTitle() {
 		return title;
@@ -97,7 +101,6 @@ public class NovelComment extends DataEntity<NovelComment> {
 		this.titleTwo = titleTwo;
 	}
 	
-	@NotBlank(message="评论类型不能为空")
 	@Length(min=0, max=1, message="评论类型长度不能超过 1 个字符")
 	public String getType() {
 		return type;
@@ -133,5 +136,20 @@ public class NovelComment extends DataEntity<NovelComment> {
 	public void setExt3(String ext3) {
 		this.ext3 = ext3;
 	}
-	
+
+	public String getComments() {
+		return comments;
+	}
+
+	public void setComments(String comments) {
+		this.comments = comments;
+	}
+
+	public Integer getNum() {
+		return num;
+	}
+
+	public void setNum(Integer num) {
+		this.num = num;
+	}
 }

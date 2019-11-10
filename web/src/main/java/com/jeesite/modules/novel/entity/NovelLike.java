@@ -32,7 +32,7 @@ public class NovelLike extends DataEntity<NovelLike> {
 	private static final long serialVersionUID = 1L;
 	private String novelId;		// 小说主键
 	private String wxUserId;		// 读者id
-	private Long likeNum;		// 喜欢个数
+	private Integer likeNum;		// 喜欢个数
 	private String ext1;		// 备用字段1
 	private String ext2;		// 备用字段2
 	private String ext3;		// 备用字段3
@@ -63,15 +63,15 @@ public class NovelLike extends DataEntity<NovelLike> {
 	public void setWxUserId(String wxUserId) {
 		this.wxUserId = wxUserId;
 	}
-	
-	public Long getLikeNum() {
+
+	public Integer getLikeNum() {
 		return likeNum;
 	}
 
-	public void setLikeNum(Long likeNum) {
+	public void setLikeNum(Integer likeNum) {
 		this.likeNum = likeNum;
 	}
-	
+
 	@Length(min=0, max=500, message="备用字段1长度不能超过 500 个字符")
 	public String getExt1() {
 		return ext1;

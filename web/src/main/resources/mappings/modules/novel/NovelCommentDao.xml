@@ -19,7 +19,7 @@
 			novel_id =#{novelId}
 		</where>
 		ORDER BY create_date
-		limit #{page} 20
+		limit #{page},20
 	</select>
 	
 </mapper>

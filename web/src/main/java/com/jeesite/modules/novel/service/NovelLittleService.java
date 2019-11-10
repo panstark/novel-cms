@@ -96,7 +96,7 @@ public class NovelLittleService extends CrudService<NovelLittleDao, NovelLittle>
 		return findNovelByNum(previous);
 	}
 
-	private NovelLittle findNovelByNum(Integer num) {
+	public NovelLittle findNovelByNum(Integer num) {
     	String number = String.valueOf(num);
 		NovelLittle novelLittle = dao.findbyNumber(number);
 		if(null==novelLittle){

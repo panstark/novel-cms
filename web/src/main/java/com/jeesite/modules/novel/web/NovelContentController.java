@@ -11,16 +11,15 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.validation.annotation.Validated;
-import org.springframework.web.bind.annotation.ModelAttribute;
-import org.springframework.web.bind.annotation.PostMapping;
-import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.ResponseBody;
+import org.springframework.web.bind.annotation.*;
 
 import com.jeesite.common.config.Global;
 import com.jeesite.common.entity.Page;
 import com.jeesite.common.web.BaseController;
 import com.jeesite.modules.novel.entity.NovelContent;
 import com.jeesite.modules.novel.service.NovelContentService;
+
+import java.util.List;
 
 /**
  * 小说内容表Controller
@@ -70,6 +69,7 @@ public class NovelContentController extends BaseController {
 	@RequiresPermissions("novel:novelContent:view")
 	@RequestMapping(value = "form")
 	public String form(NovelContent novelContent, Model model) {
+		novelContentService.setData(novelContent);
 		model.addAttribute("novelContent", novelContent);
 		return "modules/novel/novelContentForm";
 	}
@@ -81,7 +81,7 @@ public class NovelContentController extends BaseController {
 	@PostMapping(value = "save")
 	@ResponseBody
 	public String save(@Validated NovelContent novelContent) {
-		novelContentService.save(novelContent);
+		novelContentService.saveNovelContent(novelContent);
 		return renderResult(Global.TRUE, text("保存小说内容表成功！"));
 	}
 	
@@ -98,14 +98,32 @@ public class NovelContentController extends BaseController {
 
 	@RequestMapping(value = "findNextChapter")
 	@ResponseBody
-	public NovelContent findNextChapter(String novelId,String number) {
+	public NovelContent findNextChapter(String novelId,Integer number) {
 		return novelContentService.findNextChapter(novelId,number);
 	}
 
 	@RequestMapping(value = "findpreviousChapter")
 	@ResponseBody
-	public NovelContent findpreviousChapter(String novelId,String number) {
+	public NovelContent findpreviousChapter(String novelId,Integer number) {
 		return novelContentService.findPreviousChapter(novelId,number);
+	}
+
+	@RequestMapping(value = "findNovelContentById")
+	@ResponseBody
+	public NovelContent findNovelContentById(@RequestParam("chapterId") String chapterId) {
+		return novelContentService.findNovelContentById(chapterId);
+	}
+
+	@RequestMapping(value = "findNovelChapterList")
+	@ResponseBody
+	public List<String> findNovelChapterCodeList(@RequestParam("novelId") String novelId) {
+		return novelContentService.findNovelChapterList(novelId);
+	}
+
+	@RequestMapping(value = "findNovelChapter")
+	@ResponseBody
+	public List<NovelContent> findNovelChapter(@RequestParam("novelId") String novelId,@RequestParam("scope") String scope) {
+		return novelContentService.findNovelChapterByScope(novelId,scope);
 	}
 	
 }

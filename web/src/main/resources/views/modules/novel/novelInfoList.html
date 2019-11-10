@@ -112,25 +112,16 @@ $('#dataGrid').dataGrid({
 		{header:'${text("文章标号")}', name:'number', index:'a.number', width:150, align:"left", frozen:true, formatter: function(val, obj, row, act){
 			return '<a href="${ctx}/novel/novelInfo/form?id='+row.id+'" class="btnList" data-title="${text("编辑小说标题表")}">'+(val||row.id)+'</a>';
 		}},
-		{header:'${text("喜欢个数")}', name:'likeNum', index:'a.like_num', width:150, align:"center"},
 		{header:'${text("阅读次数")}', name:'readNum', index:'a.read_num', width:150, align:"center"},
-		{header:'${text("作者id")}', name:'authorId', index:'a.author_id', width:150, align:"left"},
-		{header:'${text("作者名称")}', name:'authorName', index:'a.author_name', width:150, align:"left"},
 		{header:'${text("文章标题")}', name:'title', index:'a.title', width:150, align:"left"},
-		{header:'${text("文章副标题")}', name:'titleTwo', index:'a.title_two', width:150, align:"left"},
-		{header:'${text("小说类型")}', name:'type', index:'a.type', width:150, align:"left"},
 		{header:'${text("简介")}', name:'introduction', index:'a.introduction', width:150, align:"left"},
-		{header:'${text("精华")}', name:'miniIntroduction', index:'a.mini_introduction', width:150, align:"left"},
-		{header:'${text("图片链接")}', name:'pictureUrl', index:'a.picture_url', width:150, align:"left"},
-		{header:'${text("图片链接")}', name:'musicUrl', index:'a.music_url', width:150, align:"left"},
 		{header:'${text("状态")}', name:'status', index:'a.status', width:150, align:"center", formatter: function(val, obj, row, act){
 			return js.getDictLabel(${@DictUtils.getDictListJson('sys_search_status')}, val, '${text("未知")}', true);
 		}},
 		{header:'${text("更新时间")}', name:'updateDate', index:'a.update_date', width:150, align:"center"},
-		{header:'${text("备注信息")}', name:'remarks', index:'a.remarks', width:150, align:"left"},
 		{header:'${text("操作")}', name:'actions', width:120, sortable:false, title:false, formatter: function(val, obj, row, act){
 			var actions = [];
-				actions.push('<a href="${ctx}/novel/novelContent/form?novelId='+row.id+'" class="btnList" title="${text("添加章节")}"><i class="fa fa-pencil"></i></a>&nbsp;');
+				actions.push('<a href="${ctx}/novel/novelContent/form?novelId='+row.id+'" class="btnList" title="${text("添加章节")}"><i class="fa fa-envelope"></i></a>&nbsp;');
 				actions.push('<a href="${ctx}/novel/novelInfo/form?id='+row.id+'" class="btnList" title="${text("编辑小说标题表")}"><i class="fa fa-pencil"></i></a>&nbsp;');
 				actions.push('<a href="${ctx}/novel/novelInfo/delete?id='+row.id+'" class="btnList" title="${text("删除小说标题表")}" data-confirm="${text("确认要删除该小说标题表吗？")}"><i class="fa fa-trash-o"></i></a>&nbsp;');
 			return actions.join('');

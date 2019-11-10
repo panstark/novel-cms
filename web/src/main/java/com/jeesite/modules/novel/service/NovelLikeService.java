@@ -5,6 +5,8 @@ package com.jeesite.modules.novel.service;
 
 import java.util.List;
 
+import com.jeesite.modules.novel.entity.NovelInfo;
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
@@ -21,6 +23,12 @@ import com.jeesite.modules.novel.dao.NovelLikeDao;
 @Service
 @Transactional(readOnly=true)
 public class NovelLikeService extends CrudService<NovelLikeDao, NovelLike> {
+
+	@Autowired
+	private NovelLikeDao novelLikeDao;
+
+	@Autowired
+	private NovelInfoService novelInfoService;
 	
 	/**
 	 * 获取单条数据
@@ -35,7 +43,6 @@ public class NovelLikeService extends CrudService<NovelLikeDao, NovelLike> {
 	/**
 	 * 查询分页数据
 	 * @param novelLike 查询条件
-	 * @param novelLike.page 分页对象
 	 * @return
 	 */
 	@Override
@@ -72,5 +79,42 @@ public class NovelLikeService extends CrudService<NovelLikeDao, NovelLike> {
 	public void delete(NovelLike novelLike) {
 		super.delete(novelLike);
 	}
-	
+
+    public NovelLike findByNovelAndUserId(String novelId, String userId) {
+		NovelLike novelLike = novelLikeDao.findByNovelAndUserId(novelId,userId);
+
+		return novelLike;
+    }
+
+	@Transactional(readOnly=false)
+	public void likeNovel(NovelLike novelLike) {
+		String novelId = novelLike.getNovelId();
+		String wxUserId = novelLike.getWxUserId();
+		NovelLike novelLikeOld = novelLikeDao.findByNovelAndUserId(novelId,wxUserId);
+
+		if(null==novelLikeOld){
+			novelLike.setLikeNum(1);
+			super.save(novelLike);
+
+			NovelInfo novelInfo = novelInfoService.get(novelId);
+			Integer likeNum= novelInfo.getLikeNum();
+			novelInfo.setLikeNum(likeNum+1);
+			novelInfoService.update(novelInfo);
+		}
+	}
+
+	@Transactional(readOnly=false)
+	public void cancelLikeNovel(NovelLike novelLike) {
+		String novelId = novelLike.getNovelId();
+		String wxUserId = novelLike.getWxUserId();
+		NovelLike novelLikeOld = novelLikeDao.findByNovelAndUserId(novelId,wxUserId);
+		if(null!=novelLikeOld){
+			super.delete(novelLikeOld);
+
+			NovelInfo novelInfo = novelInfoService.get(novelId);
+			Integer likeNum= novelInfo.getLikeNum();
+			novelInfo.setLikeNum(likeNum-1);
+			novelInfoService.update(novelInfo);
+		}
+	}
 }

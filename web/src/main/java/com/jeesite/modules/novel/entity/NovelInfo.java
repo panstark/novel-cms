@@ -41,7 +41,7 @@ public class NovelInfo extends DataEntity<NovelInfo> {
 	
 	private static final long serialVersionUID = 1L;
 	private Long number;		// 文章标号
-	private Long likeNum;		// 喜欢个数
+	private Integer likeNum;		// 喜欢个数
 	private Long readNum;		// 阅读次数
 	private String authorId;		// 作者id
 	private String authorName;		// 作者名称
@@ -81,11 +81,11 @@ public class NovelInfo extends DataEntity<NovelInfo> {
 		this.number = number;
 	}
 	
-	public Long getLikeNum() {
+	public Integer getLikeNum() {
 		return likeNum;
 	}
 
-	public void setLikeNum(Long likeNum) {
+	public void setLikeNum(Integer likeNum) {
 		this.likeNum = likeNum;
 	}
 	

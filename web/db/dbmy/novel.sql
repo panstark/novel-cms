@@ -131,15 +131,18 @@ CREATE TABLE user_read_log
 	PRIMARY KEY (id)
 ) COMMENT = '读者阅读记录';
 
+drop table novel_comment if exists;
 CREATE TABLE novel_comment
 (
 	id varchar(64) NOT NULL COMMENT '主键',
 	novel_id varchar(64) NOT NULL COMMENT '小说主键',
 	wx_user_id varchar(64)  COMMENT '读者id',
 	introduction varchar(500)  COMMENT '评论',
+	comments varchar(500)  COMMENT '评论',
 	title varchar(100)  COMMENT '文章标题',
 	title_two varchar(100)  COMMENT '文章副标题',
 	type char(1) NOT NULL COMMENT '评论类型',
+	num int DEFAULT 1 NOT NULL COMMENT '喜欢个数',
 	status char(1) DEFAULT '0' NOT NULL COMMENT '状态（0正常 1删除 2停用）',
 	create_by varchar(64) NOT NULL COMMENT '创建者',
 	create_date datetime NOT NULL COMMENT '创建时间',
@@ -169,3 +172,7 @@ CREATE TABLE novel_like
 	ext3 varchar(500) COMMENT '备用字段3',
 	PRIMARY KEY (id)
 ) COMMENT = '读者喜欢个数表';
+
+
+alter table novel_content add column previous_chapter_id varchar(64) comment '上一章节' after picture_url
+alter table novel_content add column next_chapter_id varchar(64) comment '上一章节' after picture_url

@@ -11,10 +11,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.validation.annotation.Validated;
-import org.springframework.web.bind.annotation.ModelAttribute;
-import org.springframework.web.bind.annotation.PostMapping;
-import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.ResponseBody;
+import org.springframework.web.bind.annotation.*;
 
 import com.jeesite.common.config.Global;
 import com.jeesite.common.entity.Page;
@@ -79,7 +76,7 @@ public class NovelCommentController extends BaseController {
 	/**
 	 * 保存读者评论表
 	 */
-	@RequiresPermissions("novel:novelComment:edit")
+
 	@PostMapping(value = "save")
 	@ResponseBody
 	public String save(@Validated NovelComment novelComment) {
@@ -103,7 +100,7 @@ public class NovelCommentController extends BaseController {
 	 */
 	@PostMapping(value = "comment")
 	@ResponseBody
-	public String comment(@Validated NovelComment novelComment) {
+	public String comment(@RequestBody NovelComment novelComment) {
 		novelCommentService.save(novelComment);
 		return "{code:000}";
 	}
@@ -113,7 +110,7 @@ public class NovelCommentController extends BaseController {
 	 */
 	@RequestMapping(value = "list-conments")
 	@ResponseBody
-	public List<NovelComment> list(String novelId, String pageNum,String pageSize) {
+	public List<NovelComment> list(@RequestParam("novelId") String novelId,@RequestParam("pageNum")  Integer pageNum,@RequestParam("pageSize") Integer pageSize) {
 
 		List<NovelComment> comments = novelCommentService.findCommentList(novelId,pageNum,pageSize);
 

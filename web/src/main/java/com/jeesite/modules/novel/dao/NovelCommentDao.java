@@ -18,5 +18,5 @@ import java.util.List;
 @MyBatisDao
 public interface NovelCommentDao extends CrudDao<NovelComment> {
 
-    List<NovelComment> findCommentList(@Param("novelId")String novelId,@Param("page") String page,@Param("num") String num);
+    List<NovelComment> findCommentList(@Param("novelId")String novelId,@Param("page") Integer page,@Param("num") Integer num);
 }

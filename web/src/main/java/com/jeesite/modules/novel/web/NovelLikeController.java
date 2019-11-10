@@ -11,10 +11,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.validation.annotation.Validated;
-import org.springframework.web.bind.annotation.ModelAttribute;
-import org.springframework.web.bind.annotation.PostMapping;
-import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.ResponseBody;
+import org.springframework.web.bind.annotation.*;
 
 import com.jeesite.common.config.Global;
 import com.jeesite.common.entity.Page;
@@ -96,9 +93,21 @@ public class NovelLikeController extends BaseController {
 		return renderResult(Global.TRUE, text("删除读者喜欢个数表成功！"));
 	}
 
-	@RequestMapping(value = "delete")
+	@RequestMapping(value = "find-by-novel-user-id")
 	@ResponseBody
-	public NovelLike findByNovelAndUserId(String id) {
-		return novelLikeService.get(id);
+	public NovelLike findByNovelAndUserId(@RequestParam("novelId") String novelId,@RequestParam("userId") String userId) {
+		return novelLikeService.findByNovelAndUserId(novelId,userId);
+	}
+
+	@RequestMapping(value = "like")
+	@ResponseBody
+	public void like(@RequestBody NovelLike novelLike) {
+		novelLikeService.likeNovel(novelLike);
+	}
+
+	@RequestMapping(value = "like/cancel")
+	@ResponseBody
+	public void likeCancel(@RequestBody NovelLike novelLike) {
+		 novelLikeService.cancelLikeNovel(novelLike);
 	}
 }

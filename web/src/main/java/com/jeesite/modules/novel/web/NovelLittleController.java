@@ -93,7 +93,7 @@ public class NovelLittleController extends BaseController {
 		return renderResult(Global.TRUE, text("删除短篇小说成功！"));
 	}
 
-	///classic/latest
+
     @RequestMapping(value = "first")
     @ResponseBody
     public NovelLittle findfirstNovel() {
@@ -111,6 +111,12 @@ public class NovelLittleController extends BaseController {
     public NovelLittle findPreviousNovel(@PathVariable(name="num") String num) {
         return novelLittleService.findPreviousNovel(num);
     }
+
+	@RequestMapping(value = "{num}")
+	@ResponseBody
+	public NovelLittle findNovelByNum(@PathVariable(name="num") Integer num) {
+		return novelLittleService.findNovelByNum(num);
+	}
 
     @RequestMapping(value = "detail/{id}")
     @ResponseBody

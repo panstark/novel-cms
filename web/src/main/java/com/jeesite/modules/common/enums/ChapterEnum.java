@@ -1,4 +1,4 @@
-package com.jeesite.modules.common;
+package com.jeesite.modules.common.enums;
 
 /**
  * @author by panstark

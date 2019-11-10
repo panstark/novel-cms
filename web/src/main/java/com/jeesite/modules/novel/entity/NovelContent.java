@@ -12,6 +12,8 @@ import com.jeesite.common.mybatis.annotation.Column;
 import com.jeesite.common.mybatis.annotation.Table;
 import com.jeesite.common.mybatis.mapper.query.QueryType;
 
+import java.util.List;
+
 /**
  * 小说内容表Entity
  * @author guoxhe
@@ -31,6 +33,9 @@ import com.jeesite.common.mybatis.mapper.query.QueryType;
 		@Column(name="content", attrName="content", label="章节内容"),
 		@Column(name="mini_introduction", attrName="miniIntroduction", label="精华"),
 		@Column(name="picture_url", attrName="pictureUrl", label="图片链接"),
+		@Column(name="previous_chapter_id", attrName="previousChapterId", label="上一章"),
+		@Column(name="next_chapter_id", attrName="nextChapterId", label="下一章"),
+		@Column(name="is_last", attrName="isLast", label="是否为最后一章"),
 		@Column(includeEntity=DataEntity.class),
 		@Column(name="ext1", attrName="ext1", label="备用字段1", isQuery=false),
 		@Column(name="ext2", attrName="ext2", label="备用字段2", isQuery=false),
@@ -45,13 +50,18 @@ public class NovelContent extends DataEntity<NovelContent> {
 	private String bigChapterStr;		// 卷
 	private Long chapter;		// 章
 	private String chapterStr;		// 卷
-	private Long totalNum;		// 总章数
+	private Integer totalNum;		// 总章数
 	private String title;		// 文章标题
 	private String titleTwo;		// 文章副标题
 	private String type;		// 小说类型
 	private String content;		// 章节内容
 	private String miniIntroduction;		// 精华
 	private String pictureUrl;		// 图片链接
+	private String nextChapterId;		// 图片链接
+	private String previousChapterId;		// 图片链接
+	private String isLast;		// 图片链接
+	private List<String> chapterScope;		// 图片链接
+
 	private String ext1;		// 备用字段1
 	private String ext2;		// 备用字段2
 	private String ext3;		// 备用字段3
@@ -112,11 +122,11 @@ public class NovelContent extends DataEntity<NovelContent> {
 		this.chapterStr = chapterStr;
 	}
 	
-	public Long getTotalNum() {
+	public Integer getTotalNum() {
 		return totalNum;
 	}
 
-	public void setTotalNum(Long totalNum) {
+	public void setTotalNum(Integer totalNum) {
 		this.totalNum = totalNum;
 	}
 	
@@ -207,5 +217,37 @@ public class NovelContent extends DataEntity<NovelContent> {
 
 	public void setChapterState(String chapterState) {
 		this.chapterState = chapterState;
+	}
+
+	public String getNextChapterId() {
+		return nextChapterId;
+	}
+
+	public void setNextChapterId(String nextChapterId) {
+		this.nextChapterId = nextChapterId;
+	}
+
+	public String getPreviousChapterId() {
+		return previousChapterId;
+	}
+
+	public void setPreviousChapterId(String previousChapterId) {
+		this.previousChapterId = previousChapterId;
+	}
+
+	public String getIsLast() {
+		return isLast;
+	}
+
+	public void setIsLast(String isLast) {
+		this.isLast = isLast;
+	}
+
+	public List<String> getChapterScope() {
+		return chapterScope;
+	}
+
+	public void setChapterScope(List<String> chapterScope) {
+		this.chapterScope = chapterScope;
 	}
 }

@@ -6,6 +6,7 @@ package com.jeesite.modules.novel.dao;
 import com.jeesite.common.dao.CrudDao;
 import com.jeesite.common.mybatis.annotation.MyBatisDao;
 import com.jeesite.modules.novel.entity.NovelLike;
+import org.apache.ibatis.annotations.Param;
 
 /**
  * 读者喜欢个数表DAO接口
@@ -14,5 +15,6 @@ import com.jeesite.modules.novel.entity.NovelLike;
  */
 @MyBatisDao
 public interface NovelLikeDao extends CrudDao<NovelLike> {
-	
+
+    NovelLike findByNovelAndUserId(@Param("novelId")String novelId,@Param("userId") String userId);
 }

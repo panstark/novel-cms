@@ -76,7 +76,7 @@ public class NovelCommentService extends CrudService<NovelCommentDao, NovelComme
 		super.delete(novelComment);
 	}
 
-	public List<NovelComment> findCommentList(String novelId, String page, String num) {
+	public List<NovelComment> findCommentList(String novelId, Integer page, Integer num) {
 		List<NovelComment> comments = novelCommentDao.findCommentList(novelId,page,num);
 		return comments;
 	}

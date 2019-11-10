@@ -17,6 +17,8 @@
 		FROM novel_content a
 		<where>
 			a.novel_id = #{novelId}
+			and
+			a.status = 0
 		</where>
 		ORDER BY a.big_chapter desc , a.chapter desc
 		limit 1
@@ -27,6 +29,8 @@
 		FROM novel_content a
 		<where>
 			a.novel_id = #{novelId}
+			and
+			a.status = 0
 		</where>
 		ORDER BY a.big_chapter asc , a.chapter asc
 		limit 1
@@ -39,12 +43,39 @@
 			a.novel_id = #{novelId}
 			and
 			a.total_num = #{total_num}
+			and
+			a.status = 0
 		</where>
 		ORDER BY a.big_chapter asc , a.chapter asc
 		limit 1
 	</select>
 
+	<select id="findChapterCount" resultType="int">
+		SELECT count(1)
+		FROM novel_content a
+		<where>
+			a.novel_id = #{novelId}
+			and
+			a.status = 0
+		</where>
 
+	</select>
+
+
+	<select id="findChapterByScope" resultType="NovelContent">
+		SELECT
+		 a.id as id,
+		 a.chapter_str as chapterStr,
+		 a.title as title
+		FROM novel_content a
+		<where>
+			a.novel_id = #{novelId}
+			and
+			a.status = 0
+		</where>
+		ORDER BY a.big_chapter asc , a.chapter asc
+		limit #{page},20
+	</select>
 
 
 </mapper>

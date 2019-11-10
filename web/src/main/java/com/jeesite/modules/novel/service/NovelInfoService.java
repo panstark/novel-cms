@@ -83,11 +83,6 @@ public class NovelInfoService extends CrudService<NovelInfoDao, NovelInfo> {
 		super.delete(novelInfo);
 	}
 
-    public NovelInfo findfirstNovel() {
-		NovelInfo novelInfo = novelInfoDao.findFirstNovel();
-
-		return novelInfo;
-    }
 
 	/**
 	 * 获取简介页面的内容
