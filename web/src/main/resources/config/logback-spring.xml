@@ -6,9 +6,11 @@
 	
 	<!-- Framework level setting -->
 	<include resource="config/logger-core.xml"/>
-	
+	<logger name="com.jeesite.common.mybatis.mapper" level="INFO" />
+	<logger name="org.mybatis.spring.transaction" level="INFO" />
+	<logger name="com.jeesite" level="INFO" />
 	<!-- Project level setting -->
-<!-- 	<logger name="your.package" level="DEBUG" /> -->
+ 	<!--<logger name="your.package" level="info"/>-->
 	
 	<!-- Console log output -->
 	<appender name="console" class="ch.qos.logback.core.ConsoleAppender">

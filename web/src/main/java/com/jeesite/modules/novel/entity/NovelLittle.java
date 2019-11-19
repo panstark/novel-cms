@@ -40,7 +40,7 @@ public class NovelLittle extends DataEntity<NovelLittle> {
 	
 	private static final long serialVersionUID = 1L;
 	private Long number;		// 文章标号
-	private Long likeNum;		// 喜欢个数
+	private Integer likeNum;		// 喜欢个数
 	private String type;		// 小说类型
 	private String title;		// 文章标题
 	private String titleTwo;		// 文章副标题
@@ -72,11 +72,11 @@ public class NovelLittle extends DataEntity<NovelLittle> {
 	}
 	
 	@NotNull(message="喜欢个数不能为空")
-	public Long getLikeNum() {
+	public Integer getLikeNum() {
 		return likeNum;
 	}
 
-	public void setLikeNum(Long likeNum) {
+	public void setLikeNum(Integer likeNum) {
 		this.likeNum = likeNum;
 	}
 	

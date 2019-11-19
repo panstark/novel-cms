@@ -6,6 +6,7 @@ package com.jeesite.modules.novel.web;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
+import com.jeesite.modules.novel.entity.NovelInfo;
 import org.apache.shiro.authz.annotation.RequiresPermissions;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
@@ -109,5 +110,13 @@ public class NovelLikeController extends BaseController {
 	@ResponseBody
 	public void likeCancel(@RequestBody NovelLike novelLike) {
 		 novelLikeService.cancelLikeNovel(novelLike);
+	}
+
+	@RequestMapping(value = "/{novelId}/{novelType}")
+	@ResponseBody
+	public NovelInfo novelLikeNum(@PathVariable("novelId") String novelId,@PathVariable("novelType") String novelType) {
+		NovelInfo novelInfo = novelLikeService.novelLikeNum(novelId,novelType);
+
+		return novelInfo;
 	}
 }

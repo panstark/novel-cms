@@ -177,7 +177,7 @@ public class NovelContentService extends CrudService<NovelContentDao, NovelConte
 		}
 
 
-		Integer scope = count%20==0?count%20:count%20+1;
+		Integer scope = count%20==0?count/20:count/20+1;
         for(int i=0;i<scope;i++){
         	String chaperOne = (i*20+1)+"-"+(i*20+20);
 			chapterScopeList.add(chaperOne);
@@ -191,7 +191,7 @@ public class NovelContentService extends CrudService<NovelContentDao, NovelConte
 		if(null!=scope){
 		  page = scope.split("-")[0];
 		}
-		List<NovelContent> listNovel = novelContentDao.findChapterByScope(novelId,Integer.valueOf(page));
+		List<NovelContent> listNovel = novelContentDao.findChapterByScope(novelId,Integer.valueOf(page)-1);
 
 		return listNovel;
 	}

@@ -102,5 +102,26 @@ public class NovelInfoController extends BaseController {
 
 		return novelInfoService.findfirstNovelAndContent(userId);
 	}
+
+	/**
+	 * 保存小说标题表
+	 */
+	@RequestMapping("/say")
+	@ResponseBody
+	public NovelInfo say() {
+
+		return novelInfoService.findWantSay();
+	}
+
+	/**
+	 * 更新新阅读次数
+	 */
+	@RequestMapping("/update-read-num")
+	@ResponseBody
+	public void updateReadNum(@RequestBody NovelInfo NovelInfo) {
+		String novelId = NovelInfo.getId();
+		 novelInfoService.updateReadNum(novelId);
+
+	}
 	
 }

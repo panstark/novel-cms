@@ -16,4 +16,6 @@ import com.jeesite.modules.novel.entity.NovelInfo;
 public interface NovelInfoDao extends CrudDao<NovelInfo> {
 
     NovelInfo findFirstNovel();
+
+    void updateReadNumPlusOne(String novelId);
 }

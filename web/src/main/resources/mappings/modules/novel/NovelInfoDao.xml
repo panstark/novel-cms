@@ -18,5 +18,15 @@
 		ORDER BY number asc
 		limit 1
 	</select>
+
+
+	<update id="updateReadNumPlusOne">
+		update novel_info
+		set read_num=read_num+1
+		<where>
+			id = #{novelId}
+		</where>
+
+	</update>
 	
 </mapper>

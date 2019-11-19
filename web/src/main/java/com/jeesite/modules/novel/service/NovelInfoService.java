@@ -9,6 +9,7 @@ import com.jeesite.modules.novel.dao.NovelContentDao;
 import com.jeesite.modules.novel.entity.NovelContent;
 import com.jeesite.modules.user.dao.UserReadLogDao;
 import com.jeesite.modules.user.entity.UserReadLog;
+import org.apache.commons.lang3.StringUtils;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
@@ -115,5 +116,20 @@ public class NovelInfoService extends CrudService<NovelInfoDao, NovelInfo> {
 		}
 
 		return novelInfo;
+	}
+
+	@Transactional(readOnly=false)
+    public void updateReadNum(String novelId) {
+		if(StringUtils.isNotBlank(novelId)){
+			novelInfoDao.updateReadNumPlusOne(novelId);
+		}
+    }
+
+
+	public NovelInfo findWantSay() {
+		String id= "i-want-say" ;
+		NovelInfo novelInfo = this.get(id);
+		return novelInfo;
+
 	}
 }

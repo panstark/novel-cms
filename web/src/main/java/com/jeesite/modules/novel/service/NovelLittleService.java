@@ -5,6 +5,7 @@ package com.jeesite.modules.novel.service;
 
 import java.util.List;
 
+import org.apache.commons.lang3.math.NumberUtils;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
@@ -85,15 +86,24 @@ public class NovelLittleService extends CrudService<NovelLittleDao, NovelLittle>
     }
 
 	public NovelLittle findNextNovel(String num) {
-    	Integer numInt = Integer.parseInt(num);
-    	Integer next = numInt+1;
-		return findNovelByNum(next);
+    	if(NumberUtils.isDigits(num) ){
+			Integer numInt = Integer.parseInt(num);
+			Integer next = numInt+1;
+			return findNovelByNum(next);
+		}else{
+    		return findFirstNovel();
+		}
+
 	}
 
 	public NovelLittle findPreviousNovel(String num) {
-		Integer numInt = Integer.parseInt(num);
-		Integer previous = numInt-1;
-		return findNovelByNum(previous);
+		if(NumberUtils.isDigits(num) ){
+		  Integer numInt = Integer.parseInt(num);
+		  Integer previous = numInt-1;
+		  return findNovelByNum(previous);
+		}else{
+			return findFirstNovel();
+		}
 	}
 
 	public NovelLittle findNovelByNum(Integer num) {
